@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+    rel="icon"
+    href="https://cdn.glitch.com/e6f60565-f728-4029-9d6b-e3a05dbf80fb%2Fanother-screen.svg?v=1611520540818"
+  />
+  <link rel="manifest" href="manifest.webmanifest" />
   <title>another-screen</title>
   <style>
     body {
@@ -16,6 +21,7 @@
       top: 50%; left: 0; right: 0; text-align: center;
       transform: translateY(-50%);
       font-size: 24px;
+      line-height: 1.5;
     }
     button {
       font-size: 10vw;
@@ -50,8 +56,14 @@
   <div id="o">
     <button onclick="start(this.parentNode)">Select screen</button>
     <p>
-      <strong>another-screen</strong> is a web application that lets you view a screen.
+      <strong>another-screen</strong> is a web application that lets you mirror a screen locally.<br />
+      Useful when presenting and demoing but the projector is behind you.
     </p>
   </div>
+  <script>
+    if (navigator.serviceWorker && !navigator.serviceWorker.controller) {
+      navigator.serviceWorker.register("/serviceworker.js");
+    }
+  </script>
 </body>
 </html>

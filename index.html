@@ -37,14 +37,22 @@
       top: 0; left: 0; width: 100%; height: 100%;
       box-sizing: border-box;
       background: black;
+      cursor: not-allowed;
     }
   </style>
 </head>
 <body>
   <script>
+    const params = new URLSearchParams(location.search)
     async function start(b) {
       try {
-        const s = await navigator.mediaDevices.getDisplayMedia({ video: true })
+        let video = true
+        if (params.get('r')) {
+          video = {
+            frameRate: { ideal: +params.get('r') }
+          }
+        }
+        const s = await navigator.mediaDevices.getDisplayMedia({ video })
         v.srcObject = s
         v.play()
         b.hidden = true
@@ -53,7 +61,7 @@
       }
     }
   </script>
-  <video id="v"></video>
+  <video id="v" ondblclick="this.requestFullscreen()"></video>
   <div id="o">
     <button onclick="start(this.parentNode)">Select screen</button>
     <p>
